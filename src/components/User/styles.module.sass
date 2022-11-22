@@ -1,0 +1,56 @@
+@use '../../styles/_util' as *
+@use '../../styles/_library' as *
+
+.user
+  @include flex(center, center, row)
+  gap: 1rem
+  cursor: pointer
+  &:hover
+    .img
+      &::after
+        filter: brightness(1.4)
+  .img
+    position: relative
+
+    img
+      max-width: 45px
+      border-radius: 5rem
+      position: relative
+      z-index: 2
+
+    &:hover
+      &::after
+        background-color: $blue-100
+    &::after
+      content: ''
+      position: absolute
+      width: 56px
+      height: 55px
+      background-color: $green-500
+      left: -5px
+      border-radius: 5rem
+      z-index: 1
+
+    &::before
+      content: ''
+      width: 54px
+      height: 54px
+      position: absolute
+      background-color: $gray-800
+      left: -4px
+      top: -3px
+      border-radius: 5rem
+      z-index: 2
+
+
+  .content
+    span
+      font-size: .8rem
+      color: $gray-300
+      display: inline-block
+      width: 160px
+      white-space: nowrap
+      overflow: hidden !important
+      text-overflow: ellipsis
+
+

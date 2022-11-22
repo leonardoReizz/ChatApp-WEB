@@ -1,0 +1,65 @@
+@use "../../styles/_library" as *
+@use "../../styles/_util" as *
+
+.login
+  height: 100vh
+  @include flex(center, center, row)
+
+  h1
+    margin-bottom: 100px
+  .loginContainer
+    @include flex(center, center, column)
+    height: 100%
+    flex: 1
+
+    .sphereDark, .sphereGreen
+      position: absolute
+      top: 0
+
+    .sphereDark
+      right: 20%
+      top: 100px
+    .sphereGreen
+      top: -100px
+      left: 25%
+
+
+    .loginContent
+      @include flex(center, center, column)
+      height: 600px
+      width: 500px
+      border-radius: 1rem
+      z-index: 100
+
+      form
+        @include flex(center, center, column)
+        width: 100%
+
+        gap: 1rem
+        padding: 1rem 3rem
+
+        input
+          width: 80%
+
+        button
+          margin-top: 20px
+          background: linear-gradient(90deg, rgba(0,102,71,1) 0%, rgba(0,150,105,1) 51%, rgba(0,182,127,1) 84%, rgba(0,150,105,1) 100%)
+
+      span
+        margin-top: 50px
+        font-size: .9rem
+        a
+          font-size: 1rem
+          margin-left: .2rem
+      a
+        margin-top: 1rem
+
+  a
+    color: $green-500
+    transition: filter 0.2s
+    &:hover
+      text-decoration: underline
+      filter: brightness(1.2)
+
+
+

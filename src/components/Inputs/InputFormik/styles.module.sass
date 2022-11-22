@@ -1,0 +1,27 @@
+@use '../../../styles/_library' as *
+@use '../../../styles/_util' as *
+
+.input
+  @include flex(center, center, column)
+  width: 100%
+  position: relative
+
+  input
+    height: 45px
+    width: 100%
+    border-radius: $default-radius
+    padding: .5rem 1rem
+    outline: none
+    background-color: transparent
+    color: $white
+    border: 2px solid $gray-600
+    font-size: .9rem
+    &:hover
+      border-color: $green-500
+
+  .formError
+    color: $red-100
+    width: 100%
+    margin-right: -100px
+    margin-top: 5px
+    font-size: .9rem
