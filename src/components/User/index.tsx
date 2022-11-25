@@ -1,18 +1,19 @@
-import styles from './styles.module.sass';
 import nullPicture from '../../assets/images/nullProfilePicture.png';
-import { UserType } from '../../pages/messages/types';
+import { User as UserType } from '../../pages/messages/types';
+import styles from './styles.module.sass';
 
 type UserProps = {
   user: Omit<UserType, 'token'>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   onClickImage?: React.MouseEventHandler<HTMLDivElement>;
+  online: boolean;
 };
 
 
-const User = ({ user, onClick, onClickImage }: UserProps) => {
+const User = ({ user, onClick, onClickImage, online }: UserProps) => {
   return (
     <div className={styles.user}>
-      <div className={styles.img} onClick={onClickImage}>
+      <div className={`${styles.img} ${online ? styles.online : styles.offline}`} onClick={onClickImage}>
         <img
           src={user.imageProfile !== 'null' ? user.imageProfile : nullPicture}
           alt="Imagem de perfil"

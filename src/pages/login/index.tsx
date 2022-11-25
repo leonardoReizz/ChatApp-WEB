@@ -1,22 +1,22 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 
-import formikLogin from '../../utils/Formik/UserLoginSchema';
 import InputFormik from '../../components/Inputs/InputFormik';
 import Button from '../../components/Buttons/Button';
 import ErrorMessage from '../../components/Error/ErrorMessage';
+import APIUser from '../../api/user';
+import { changeUser } from '../../redux/userSlice';
+import formikLogin from '../../utils/Formik/UserLoginSchema';
 
-import * as types from '../../types/types'
-import { UserLogin } from './types';
 import sphereDark from '../../assets/images/sphereDark.png';
 import sphereGreen from '../../assets/images/sphereGreen.png';
+import * as types from '../../types/types'
+import { UserLogin } from './types';
+import { IStore } from '../../redux/types';
 
 import styles from './styles.module.sass';
-import APIUser from '../../api/user';
-import { Link, useNavigate } from 'react-router-dom';
-import { changeUser } from '../../redux/userSlice';
-import { IStore } from '../../redux/types';
 
 const Login = (): JSX.Element => {
   const [message, setMessage] = useState<types.Message| undefined>();

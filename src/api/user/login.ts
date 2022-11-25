@@ -19,10 +19,10 @@ const login = async ({ email, password } : LoginProps): Promise<APIDefaultResult
         data: result.data,
       };
     })
-    .catch((err) => {
+    .catch((error) => {
       return {
-        status: err.response.status,
-        data: err.response.data,
+        status: error.response.status,
+        data: error.response.statusText,
       };
     });
 }

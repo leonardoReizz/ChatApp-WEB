@@ -94,7 +94,7 @@ const Register = (): JSX.Element => {
             <Button type="submit">Cadastrar</Button>
           </form>
           <span>
-            Já possui uma conta? <Link to="/login"> Entre </Link>
+            Já possui uma conta? <Link to="/"> Entre </Link>
           </span>
         </div>
       </div>

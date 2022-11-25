@@ -26,11 +26,9 @@
       position: absolute
       width: 56px
       height: 55px
-      background-color: $green-500
       left: -5px
       border-radius: 5rem
       z-index: 1
-
     &::before
       content: ''
       width: 54px
@@ -42,6 +40,12 @@
       border-radius: 5rem
       z-index: 2
 
+  .online
+    &::after
+      background-color: $green-500
+  .offline
+    &::after
+      background-color: $red-100
 
   .content
     span

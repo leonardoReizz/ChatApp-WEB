@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {IStore} from "./types";
 
 export const slice = createSlice({
   name: 'user',
@@ -27,5 +28,5 @@ export const slice = createSlice({
 })
 
 export const { changeUser, logout } = slice.actions;
-export const selectUser = (state: { user: any; }) => state.user;
+export const selectUser = (state: IStore) => state.user;
 export default slice.reducer;
