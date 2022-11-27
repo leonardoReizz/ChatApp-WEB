@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import InputFormik from '../../components/Inputs/InputFormik';
 import Button from '../../components/Buttons/Button';
@@ -14,7 +14,6 @@ import sphereDark from '../../assets/images/sphereDark.png';
 import sphereGreen from '../../assets/images/sphereGreen.png';
 import * as types from '../../types/types'
 import { UserLogin } from './types';
-import { IStore } from '../../redux/types';
 
 import styles from './styles.module.sass';
 
@@ -22,7 +21,6 @@ const Login = (): JSX.Element => {
   const [message, setMessage] = useState<types.Message| undefined>();
   const navigate = useNavigate();
   const dispath = useDispatch();
-  const { user } = useSelector((state: IStore ) => state);
 
   const onSubmit = async (values: UserLogin) => {
     setMessage(undefined);

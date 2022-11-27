@@ -14,5 +14,6 @@ export interface Friends {
   _id: string;
   fullName: string;
   imageProfile: string;
+  email: string;
   status: string;
 }

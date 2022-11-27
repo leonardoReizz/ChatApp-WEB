@@ -1,13 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import Sidebar from '../components/Sidebar';
-
 import styles from './styles.module.sass';
-import { IStore } from '../redux/types';
 
-const LayoutsWithNavbarProps = (): JSX.Element => {
-  const { user } = useSelector((state: IStore) => state);
-  
+const LayoutsWithNavbarProps = (): JSX.Element => {  
   return (
     <>
       <div className={styles.flex}>

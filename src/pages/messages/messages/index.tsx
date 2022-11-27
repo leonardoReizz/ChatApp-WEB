@@ -1,32 +1,73 @@
-import {useFormik} from "formik";
-import {useEffect} from "react";
-import listMessages from "../../../api/messages/listMessages";
-import {User} from "../types";
-import {useSelector} from "react-redux";
-import {IStore} from "../../../redux/types";
+import { useEffect, useRef } from "react";
+import { User } from "../types";
+import { useSelector } from "react-redux";
+import { IStore } from "../../../redux/types";
+import styles from './styles.module.sass';
+import nullPicture from "../../../assets/images/nullProfilePicture.png";
+import useMessages from '../../../hooks/useMessages'
 
-interface MessageProps{
+interface MessageProps {
   friend: User
 }
-const Messages = ({friend}: MessageProps): JSX.Element => {
-  const { user } = useSelector((state: IStore) => state);
 
-
+const Message = ({ friend }: MessageProps): JSX.Element => {
+  const { user } = useSelector((state: IStore) => state.user);
+  const { messages, fetchMessages, receivedMessage } = useMessages();
+  const divRef = useRef<HTMLInputElement>(null);
+  
   useEffect(() => {
-    const fetchMessages = async () => {
-      const data = await listMessages({
+    if (receivedMessage === true) {
+      fetchMessages({
         idUser: user.id,
         idUserFriend: friend._id,
         token: user.token,
-      })
-
-      console.log(data)
+      });
     }
-    fetchMessages();
-  },[friend])
+  }, [receivedMessage]);
+  
+  useEffect(() => {
+    if (divRef !== null) {
+      divRef.current?.scrollTo({
+        top: divRef.current.scrollHeight,
+      })
+    }
+  }, [messages]);
+  
+  const formatDate = (date: string): string => {
+    const newDate = new Date(date);
+    return `${newDate.getHours()}:${newDate.getMinutes()}`
+  }
+
   return (
-    <h2>MINHAS MENSAGENS</h2>
+    <div className={styles.messages} ref={divRef}>
+      {
+        messages.map((message) => (
+          <div
+            key={message._id}
+            className={`${styles.message} ${message.idUserSend === user.id ? styles.sent : styles.received}`}
+          >
+            <div className={styles.container}>
+              <div className={styles.imageProfile}>
+                <img
+                  src={friend.imageProfile !== 'null' ? friend.imageProfile : nullPicture}
+                  alt="Imagem de perfil"
+                />
+              </div>
+              <div className={styles.content}>
+                <h4>
+                  {message.idUserSend === user.id ? user.fullName : friend.fullName}
+                </h4>
+                <p>{message.message}</p>
+                <div className={styles.date}>
+                  <p>{formatDate(message.updatedAt)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
   );
 }
 
-export default Messages;
+export default Message;

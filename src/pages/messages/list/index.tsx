@@ -1,72 +1,28 @@
-/* eslint-disable no-unneeded-ternary */
-/* eslint-disable no-underscore-dangle */
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import { useSelector } from 'react-redux';
-import {CurrentUser, Friend} from './types';
+import { Link } from 'react-router-dom';
 
 import nullPicture from '../../../assets/images/nullProfilePicture.png';
 
-import styles from './styles.module.sass';
 import User from '../../../components/User';
+import { IStore } from '../../../redux/types';
+import useFriends from '../../../hooks/useFriends';
+
 import * as types from '../types';
-import { Link } from 'react-router-dom';
-import APIFriends from '../../../api/friends';
-import axios from "axios";
-import {api} from "../../../utils/api";
+import {CurrentUser, Friends} from './types';
+
+import styles from './styles.module.sass';
 
 interface ListProps {
-  handleOpenChat(user: Omit<types.User, 'token'>): void;
+  handleOpenChat(user: Omit<Friends, 'token'>): void;
   usersOnline: types.UsersOnline[];
-}
-
-const fetchUserById = async (id: string, token: string) => {
-  return axios
-    .get(`${api}/user/id/${id}`, {
-      headers: {
-        authorization: token,
-      },
-    })
-    .then((result) => {
-      return {
-        status: result.status,
-        data: result.data,
-      };
-    })
-    .catch((error) => {
-      console.log(error, ' ERROR GET USER BY ID');
-      return {
-        status: error.status,
-        data: {
-          msg: error.response.msg
-        },
-      };
-    });
 }
 
 const List = ({ handleOpenChat, usersOnline }: ListProps): JSX.Element => {
   const [currentUser, setCurrentUser] = useState<CurrentUser>();
-  const [myFriends, setMyFriends] = useState<Omit<types.User, 'token'>[]>([]);
-  const { user }  = useSelector((state: any) => state);
-
-  useEffect(() => {
-    const fetchFriends = async () => {
-      const list = await APIFriends.list({userID: user.id, token: user.token})
-      const listFriends = await Promise.all(
-          list.data.msg.map(async (friend: Friend) => {
-            let getUser;
-            if (friend.idUserOne !== user.id) {
-              getUser = await fetchUserById(friend.idUserOne, user.token);
-            } else {
-              getUser = await fetchUserById(friend.idUserTwo, user.token);
-            }
-            return getUser.data.msg[0];
-          })
-        )
-      setMyFriends(listFriends)
-      }
-
-    fetchFriends();
-  }, []);
+  const { user }  = useSelector((state: IStore) => state.user);
+  
+  const myFriends = useFriends();
 
   const handleOpenImageProfile = () => {
 

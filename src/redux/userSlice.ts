@@ -12,7 +12,6 @@ export const slice = createSlice({
   },
   reducers:{
     changeUser(state, { payload }) {
-      localStorage.setItem('chatApp', JSON.stringify({token: payload.token, id: payload.id}))
       return { ...state, ...payload, isLogged: true }
     },
     logout(state){

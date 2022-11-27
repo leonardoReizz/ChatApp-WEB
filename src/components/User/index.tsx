@@ -1,13 +1,14 @@
 import nullPicture from '../../assets/images/nullProfilePicture.png';
+import { Friends } from '../../pages/messages/list/types';
 import { User as UserType } from '../../pages/messages/types';
 import styles from './styles.module.sass';
 
 type UserProps = {
-  user: Omit<UserType, 'token'>;
+  user: Omit<Friends, 'token'>;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   onClickImage?: React.MouseEventHandler<HTMLDivElement>;
   online: boolean;
-};
+};  
 
 
 const User = ({ user, onClick, onClickImage, online }: UserProps) => {

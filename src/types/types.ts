@@ -16,3 +16,9 @@ export interface User {
   token: string;
   isLogged: string;
 }
+
+
+export interface ISocketUser {
+  socketId: string;
+  email: string;
+}

@@ -1,50 +1,41 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useState} from 'react';
 import List from './list';
-import styles from './styles.module.sass';
 import Chat from './chat';
 import * as types from './types';
-import {useSelector} from "react-redux";
-import {IStore} from "../../redux/types";
+import Message from "./messages";
+import TextArea from "./textarea";
+import styles from './styles.module.sass';
+import useSocket from '../../hooks/useSocket';
+import useMessages from '../../hooks/useMessages';
 
 export const Messages = (): JSX.Element => {
   const [friendChat, setFriendChat] = useState<types.User>();
-  const [usersOnline, setUsersOnline] = useState<types.UsersOnline[]>([]);
-  const { user } = useSelector((state: IStore ) => state);
-  const { socket }  = useSelector((state: IStore) => state.socket);
+  const { usersOnline } = useSocket();
+  const { handleReceivedMessage } = useMessages();
+  
   const handleOpenChat = useCallback((user: types.User) => {
     setFriendChat(user);
+    handleReceivedMessage(true);
   }, []);
 
-  useEffect(() => {
-    socket.emit('online', user.email)
-  },[]);
-
-
-  useEffect(() => {
-    socket.on('usersOnline', (users: types.UsersOnline[]) => {
-      setUsersOnline(users);
-    })
-  }, []);
-
-  // useEffect(() => {
-  //   socket.emit('sendMessage', 'OLA MUNDO')
-  // }, []);
-  // useEffect(() => {
-  //   socket.on('receiveMessage', (message: string) => {
-  //     console.log(message)
-  //   })
-  // }, []);
   return (
     <div className={styles.messages}>
       <div className={styles.list}>
         <List handleOpenChat={handleOpenChat} usersOnline={usersOnline} />
       </div>
-      {friendChat !== undefined &&
-          <Chat
+        {friendChat !== undefined &&
+          <div className={styles.chat}>
+            <Chat
               friend={friendChat}
-              online={usersOnline.filter((user) => user.email === friendChat.email).length > 0}
-          />
-      }
+              online={usersOnline.filter(
+                (userOnline) => userOnline.email === friendChat.email
+              ).length > 0
+              }
+            />
+            <Message friend={friendChat}  />
+            <TextArea friend={friendChat} />
+           </div>
+        }
     </div>
   );
 };

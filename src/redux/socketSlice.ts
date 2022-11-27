@@ -1,19 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {IStore} from "./types";
 import io from 'socket.io-client';
 
 export const slice = createSlice({
-  name: 'socket',
+  name: 'ioSocket',
   initialState: {
-    socket: io('http://localhost:3333'),
+    ioSocket: io('http://localhost:3333'),
+    usersOnline: []
   },
   reducers:{
     changeSocket(state, { payload }) {
-      return { ...state, payload }
+      return { ...state, ...payload }
     },
   }
 })
 
 export const { changeSocket } = slice.actions;
-export const socket = (state: IStore) => state.socket;
 export default slice.reducer;
