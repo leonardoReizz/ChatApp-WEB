@@ -4,14 +4,15 @@ import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
 export interface IStore {
   user: {
-    user: User,
-    _persist: any
-  }
+    user: User;
+    _persist: any;
+  };
   ioSocket: {
-    ioSocket:  Socket<DefaultEventsMap, DefaultEventsMap>
-    usersOnline: ISocketUser[]
-  }
+    ioSocket: Socket<DefaultEventsMap, DefaultEventsMap>;
+    usersOnline: ISocketUser[];
+  };
   message: {
-    receivedMessage: boolean
-  }
+    receivedMessage: boolean;
+    isLoading: boolean;
+  };
 }

@@ -1,30 +1,32 @@
-import { useState } from 'react';
-import { useFormik } from 'formik';
+import { useState } from "react";
+import { useFormik } from "formik";
 
-import formikRegister from '../../utils/Formik/UserRegisterSchema';
-import ErrorMessage from '../../components/Error/ErrorMessage';
-import InputFormik from '../../components/Inputs/InputFormik';
-import Button from '../../components/Buttons/Button';
+import formikRegister from "../../utils/Formik/UserRegisterSchema";
+import ErrorMessage from "../../components/Error/ErrorMessage";
+import InputFormik from "../../components/Inputs/InputFormik";
+import Button from "../../components/Buttons/Button";
 
-import sphereGreen from '../../assets/images/sphereGreen.png';
-import sphereDark from '../../assets/images/sphereDark.png';
+import sphereGreen from "../../assets/images/sphereGreen.png";
+import sphereDark from "../../assets/images/sphereDark.png";
 
-import * as types from '../../types/types';
+import * as types from "../../types/types";
 
-import styles from './styles.module.sass';
-import { UserRegister } from './types';
-import APIUser from '../../api/user';
-import { Link } from 'react-router-dom';
+import styles from "./styles.module.sass";
+import { UserRegister } from "./types";
+import APIUser from "../../api/user";
+import { Link } from "react-router-dom";
 
-
-const Register = (): JSX.Element => {
+export function Register() {
   const [message, setMessage] = useState<types.Message | undefined>();
 
   const onSubmit = (values: UserRegister) => {
     setMessage(undefined);
-    APIUser.register({ email: values.email, fullName: values.fullName, password: values.password });
+    APIUser.register({
+      email: values.email,
+      fullName: values.fullName,
+      password: values.password,
+    });
   };
-
 
   const formikProps = useFormik({
     initialValues: formikRegister.UserRegisterInitialValues,
@@ -100,6 +102,4 @@ const Register = (): JSX.Element => {
       </div>
     </div>
   );
-};
-
-export default Register;
+}

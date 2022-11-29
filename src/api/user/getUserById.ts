@@ -9,26 +9,26 @@ interface GetUserByIdProps {
 
 const getUserById = async ({ id, token } : GetUserByIdProps): Promise<APIDefaultResult> => {
   return axios
-  .get(`${api}/user/id/${id}`, {
-    headers: {
-      authorization: token,
-    },
-  })
-  .then((result) => {
-    return {
-      status: result.status,
-      data: result.data,
-    };
-  })
-  .catch((error) => {
-    console.log(error, ' ERROR GET USER BY ID');
-    return {
-      status: error.status,
-      data: {
-        msg: error.response.msg
+    .get(`${api}/user/id/${id}`, {
+      headers: {
+        authorization: token,
       },
-    };
-  });
+    })
+    .then((result) => {
+      return {
+        status: result.status,
+        data: result.data,
+      };
+    })
+    .catch((error) => {
+      console.log(error, ' ERROR GET USER BY ID');
+      return {
+        status: error.status,
+        data: {
+          msg: error.response.msg
+        },
+      };
+    });
 }
 
 export default getUserById;

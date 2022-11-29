@@ -1,30 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit';
-import {IStore} from "./types";
+import { createSlice } from "@reduxjs/toolkit";
+import { IStore } from "./types";
 
 export const slice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: {
-    id: '',
-    fullName: '',
-    email: '',
-    token: '',
+    id: "",
+    fullName: "",
+    email: "",
+    token: "",
     isLogged: false,
   },
-  reducers:{
+  reducers: {
     changeUser(state, { payload }) {
-      return { ...state, ...payload, isLogged: true }
+      return { ...state, ...payload, isLogged: true };
     },
-    logout(state){
+    logout(state) {
       return {
-        ...state, 
-        id: '', 
-        email: '', 
-        token: '', 
-        isLogged: false
-      }
-    }
-  }
-})
+        ...state,
+        id: "",
+        email: "",
+        token: "",
+        isLogged: false,
+      };
+    },
+  },
+});
 
 export const { changeUser, logout } = slice.actions;
 export const selectUser = (state: IStore) => state.user;

@@ -9,10 +9,11 @@ interface ISendMessage {
   email: string;
 }
 
-const useSocket = () => {
+export function useSocket(){
+  const dispath = useDispatch();
   const ioSocket = useSelector((state: IStore) => state.ioSocket);
   const { receivedMessage } = useSelector((state: IStore) => state.message);
-  const dispath = useDispatch();
+  const usersOnline = ioSocket.usersOnline;
 
   useEffect(() => {
     ioSocket.ioSocket.on('usersOnline', (users: UsersOnline[]) => {
@@ -32,14 +33,12 @@ const useSocket = () => {
     })
   }, []); 
 
-  const sendMessage = (send: ISendMessage) => {
+  function sendMessage(send: ISendMessage){
     ioSocket.ioSocket.emit('sendMessage', send)
     dispath(changeMessage({
       receivedMessage: true
     }))
   }
-
-  const usersOnline = ioSocket.usersOnline;
 
   return { 
     ioSocket: ioSocket.ioSocket, 
@@ -48,5 +47,3 @@ const useSocket = () => {
     usersOnline,
   };
 }
-
-export default useSocket;

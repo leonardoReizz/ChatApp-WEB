@@ -1,31 +1,31 @@
-import {useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-import nullPicture from '../../../assets/images/nullProfilePicture.png';
+import nullPicture from "../../../assets/images/nullProfilePicture.png";
 
-import User from '../../../components/User';
-import { IStore } from '../../../redux/types';
-import useFriends from '../../../hooks/useFriends';
+import User from "../../../components/User";
+import { IStore } from "../../../redux/types";
+import { useFriends } from "../../../hooks/useFriends";
 
-import * as types from '../types';
-import {CurrentUser, Friends} from './types';
+import * as types from "../types";
+import { CurrentUser, Friends } from "./types";
 
-import styles from './styles.module.sass';
+import styles from "./styles.module.sass";
 
 interface ListProps {
-  handleOpenChat(user: Omit<Friends, 'token'>): void;
+  handleOpenChat(user: Omit<Friends, "token">): void;
   usersOnline: types.UsersOnline[];
 }
 
-const List = ({ handleOpenChat, usersOnline }: ListProps): JSX.Element => {
+export function List({ handleOpenChat, usersOnline }: ListProps) {
   const [currentUser, setCurrentUser] = useState<CurrentUser>();
-  const { user }  = useSelector((state: IStore) => state.user);
-  
+  const { user } = useSelector((state: IStore) => state.user);
+
   const myFriends = useFriends();
 
-  const handleOpenImageProfile = () => {
-
+  function handleOpenImageProfile() {
+    throw "not implemented";
   }
 
   return (
@@ -55,12 +55,13 @@ const List = ({ handleOpenChat, usersOnline }: ListProps): JSX.Element => {
             user={friend}
             onClick={() => handleOpenChat(friend)}
             onClickImage={handleOpenImageProfile}
-            online={usersOnline.filter((user) => user.email === friend.email).length > 0}
+            online={
+              usersOnline.filter((user) => user.email === friend.email).length >
+              0
+            }
           />
         ))}
       </main>
     </div>
   );
-};
-
-export default List;
+}

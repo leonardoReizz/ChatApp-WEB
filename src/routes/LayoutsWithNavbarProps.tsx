@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
-import styles from './styles.module.sass';
+import { Outlet } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
+import styles from "./styles.module.sass";
 
-const LayoutsWithNavbarProps = (): JSX.Element => {  
+export function LayoutsWithNavbarProps() {
   return (
     <>
       <div className={styles.flex}>
@@ -11,6 +11,4 @@ const LayoutsWithNavbarProps = (): JSX.Element => {
       </div>
     </>
   );
-};
-
-export default LayoutsWithNavbarProps;
+}

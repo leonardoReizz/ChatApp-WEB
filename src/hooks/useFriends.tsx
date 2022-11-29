@@ -5,12 +5,12 @@ import APIUser from "../api/user";
 import { Friend, Friends } from "../pages/messages/list/types";
 import { IStore } from "../redux/types";
 
-const useFriends = () => {
+export function useFriends(){
   const [myFriends, setMyFriends] = useState<Omit<Friends, 'token'>[]>([]);
   const { user }  = useSelector((state: IStore) => state.user);
   
   useEffect(() => {
-    const fetchFriends = async () => {
+    async function fetchFriends(){
       const list = await APIFriends.list({userID: user.id, token: user.token})
       const listFriends = await Promise.all(
           list.data.msg.map(async (friend: Friend) => {
@@ -31,5 +31,3 @@ const useFriends = () => {
 
   return myFriends;
 }
-
-export default useFriends;
